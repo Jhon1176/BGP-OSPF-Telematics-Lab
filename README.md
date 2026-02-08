@@ -1,6 +1,6 @@
 # Implementación de Red ISP: BGP + OSPF + MPLS (Simulación)
 
-![Topologia de Red](nombre_de_tu_imagen_subida.jpg)
+![Topologia de Red](image.png)
 *(Asegúrate de cambiar el nombre del archivo de la imagen aquí arriba)*
 
 ## 📋 Resumen del Proyecto
