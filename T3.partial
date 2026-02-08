@@ -1,0 +1,12 @@
+configure
+set interfaces ethernet eth1 address 172.20.30.1/24
+set interfaces ethernet eth2 address 172.20.50.2/24
+set interfaces ethernet eth3 address 172.20.40.1/24
+set interfaces ethernet eth4 address 200.10.10.250/30
+set protocols ospf interface eth1 area 0
+set protocols ospf interface eth2 area 0
+set protocols ospf interface eth3 area 0
+set protocols static route 7.7.7.6/32 next-hop 200.10.10.249
+set protocols static route 192.168.12.0/22 next-hop 200.10.10.249
+set protocols ospf redistribute static
+commit

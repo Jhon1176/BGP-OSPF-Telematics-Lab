@@ -1,0 +1,24 @@
+configure t
+int loopback 0
+ip add 4.4.4.12 255.255.255.255
+ip ospf 10 area 0
+exit
+int e0/1
+ip add 172.28.3.2 255.255.255.0
+no shut
+ip ospf 10 area 0
+exit
+int e0/2
+ip add 172.28.16.1 255.255.255.0
+no shut
+ip ospf 10 area 0
+exit
+
+
+router bgp 300
+neighbor 4.4.4.10 remote-as 300
+neighbor 4.4.4.10 update-source lo0
+neighbor 4.4.4.10 next-hop-self
+neighbor 4.4.4.11 remote-as 300
+neighbor 4.4.4.11 update-source lo0
+neighbor 4.4.4.11 next-hop-self

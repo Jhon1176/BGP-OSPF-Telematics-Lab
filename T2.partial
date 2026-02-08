@@ -1,0 +1,6 @@
+configure
+set interfaces ethernet eth1 address 172.20.10.2/24
+set interfaces ethernet eth2 address 172.20.30.1/24
+set protocols ospf interface eth1 area 0
+set protocols ospf interface eth2 area 0
+commit

@@ -1,0 +1,187 @@
+name: bgp_lab
+
+topology:
+  nodes:
+
+    #R1
+    R1:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.12.1
+      mgmt-ipv4: 172.20.20.101
+      startup-config: R1.partial
+
+    #R2
+    R2:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.12.1
+      mgmt-ipv4: 172.20.20.102
+      startup-config: R2.partial
+
+    #R3
+    R3:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.12.1
+      mgmt-ipv4: 172.20.20.103
+      startup-config: R3.partial
+
+    #R4
+    R4:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.12.1
+      mgmt-ipv4: 172.20.20.104
+      startup-config: R4.partial
+
+    #R5
+    R5:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.12.1
+      mgmt-ipv4: 172.20.20.105
+      startup-config: R5.partial
+
+    #T1
+    T1:
+      kind: vyosnetworks_vyos
+      image: vyos:1.5
+      mgmt-ipv4: 172.20.20.106
+
+    #T2
+    T2:
+      kind: vyosnetworks_vyos
+      image: vyos:1.5
+      mgmt-ipv4: 172.20.20.107
+
+    #T3
+    T3:
+      kind: vyosnetworks_vyos
+      image: vyos:1.5
+      mgmt-ipv4: 172.20.20.108
+
+    #T4
+    T4:
+      kind: vyosnetworks_vyos
+      image: vyos:1.5
+      mgmt-ipv4: 172.20.20.109
+
+    #R6
+    R6:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.12.1
+      mgmt-ipv4: 172.20.20.110
+      startup-config: R6.partial
+
+    #R7
+    R7:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.12.1
+      mgmt-ipv4: 172.20.20.111
+      startup-config: R7.partial
+
+    #R8
+    R8:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.12.1
+      mgmt-ipv4: 172.20.20.112
+      startup-config: R8.partial
+
+    #R9
+    R9:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.12.1
+      mgmt-ipv4: 172.20.20.113
+      startup-config: R9.partial
+    #R10
+    R10:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.12.1
+      mgmt-ipv4: 172.20.20.114
+      startup-config: R10.partial
+    #R11
+    R11:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.12.1
+      mgmt-ipv4: 172.20.20.115
+      startup-config: R11.partial
+    #R12
+    R12:
+      kind: cisco_iol
+      image: vrnetlab/cisco_iol:17.12.1
+      mgmt-ipv4: 172.20.20.116
+      startup-config: R12.partial
+
+    PC1:
+      kind: linux
+      image: mi-pc-ssh:latest
+      exec:
+        - ip addr add 10.10.12.100/24 dev eth1
+        - ip route default via 10.10.12.1
+
+    PC2:
+      kind: linux
+      image: mi-pc-ssh:latest
+      exec:
+        - ip addr add 10.10.14.100/24 dev eth1
+        - ip route default via 10.10.14.1
+
+    PC3:
+      kind: linux
+      image: mi-pc-ssh:latest
+      exec:
+        - ip addr add 10.10.15.100/24 dev eth1
+        - ip route default via 10.10.15.1
+    PC4:
+      kind: linux
+      image: mi-pc-ssh:latest
+      exec:
+        - ip addr add 192.168.12.100/24 dev eth1
+        - ip route default via 192.168.12.1
+    PC5:
+      kind: linux
+      image: mi-pc-ssh:latest
+      exec:
+        - ip addr add 192.168.14.100/24 dev eth1
+        - ip route default via 192.168.14.1
+    PC6:
+      kind: linux
+      image: mi-pc-ssh:latest
+      exec:
+        - ip addr add 172.28.12.100/24 dev eth1
+        - ip route default via 172.28.12.1
+    PC7:
+      kind: linux
+      image: mi-pc-ssh:latest
+      exec:
+        - ip addr add 172.28.17.100/24 dev eth1
+        - ip route default via 172.28.17.1
+    PC8:
+      kind: linux
+      image: mi-pc-ssh:latest
+      exec:
+        - ip addr add 172.28.16.100/24 dev eth1
+        - ip route default via 172.28.16.1
+
+  links:
+    - endpoints: [ "R1:Ethernet0/2", "R2:Ethernet0/1" ]
+    - endpoints: [ "R2:Ethernet0/2", "R3:Ethernet0/1" ]
+    - endpoints: [ "R3:Ethernet0/2", "R5:Ethernet0/1" ]
+    - endpoints: [ "R4:Ethernet0/1", "R2:Ethernet0/3" ]
+    - endpoints: [ "R4:Ethernet0/2", "R5:Ethernet0/2" ]
+    - endpoints: [ "PC1:eth1", R5:Ethernet0/3 ]
+    - endpoints: [ "PC2:eth1", R5:Ethernet1/0 ]
+    - endpoints: [ "PC3:eth1", R5:Ethernet1/1 ]
+    - endpoints: [ "T1:eth1", R1:Ethernet0/1 ]
+    - endpoints: [ "T1:eth2", "T2:eth1" ]
+    - endpoints: [ T2:eth2, "T3:eth1" ]
+    - endpoints: [ "T3:eth2", "T1:eth3" ]
+    - endpoints: [ "T3:eth3", "T4:eth1" ]
+    - endpoints: [ "R6:Ethernet0/1", "T3:eth4" ]
+    - endpoints: [ "R6:Ethernet0/2", "R7:Ethernet0/1" ]
+    - endpoints: [ "R7:Ethernet0/2", "R8:Ethernet0/1" ]
+    - endpoints: [ "R8:Ethernet0/2", "R9:Ethernet0/1" ]
+    - endpoints: [ "R7:Ethernet0/3", "PC4:eth1" ]
+    - endpoints: [ "R9:Ethernet0/2", "PC5:eth1" ]
+    - endpoints: [ "R11:Ethernet0/1", "T4:eth2" ]
+    - endpoints: [ "R11:Ethernet0/2", "R12:Ethernet0/1" ]
+    - endpoints: [ "R10:Ethernet0/1", "R11:Ethernet0/3" ]
+    - endpoints: [ "R10:Ethernet0/2", "PC6:eth1" ]
+    - endpoints: [ "R12:Ethernet0/2", "PC8:eth1" ]
+    - endpoints: [ "R11:Ethernet1/0", "PC7:eth1" ]

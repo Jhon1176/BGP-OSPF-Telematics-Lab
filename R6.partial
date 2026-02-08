@@ -1,0 +1,58 @@
+configure t
+int e0/0
+ip add 172.20.20.110 255.255.255.0
+no shut
+exit
+int e0/1
+ip add 200.10.10.249 255.255.255.252
+no shut
+exit
+int e0/2
+ip add 192.168.2.1 255.255.255.0
+no shut
+exit
+int loopback 0
+ip add 7.7.7.6 255.255.255.255
+exit
+router rip
+version 2
+no auto-summary
+redistribute static
+network 192.168.2.0 
+network 7.7.7.6
+
+router bgp 200
+bgp router-id 7.7.7.6
+neighbor 1.1.1.1 remote-as 100
+neighbor 1.1.1.1 ebgp-multihop 4
+neighbor 1.1.1.1 update-source lo0
+network 7.7.7.6 mask 255.255.255.255
+exit
+
+router bgp 200
+redistribute rip
+
+router bgp 200
+bgp router-id 7.7.7.6
+neighbor 4.4.4.11 remote-as 300
+neighbor 4.4.4.11 ebgp-multihop 4
+neighbor 4.4.4.11 update-source lo0
+network 7.7.7.6 mask 255.255.255.255
+exit
+
+ip route 1.1.1.1 255.255.255.255 200.10.10.250
+ip route 4.4.4.11 255.255.255.255 200.10.10.250
+
+router bgp 200
+neighbor 7.7.7.7 remote-as 200
+neighbor 7.7.7.7 update-source lo0
+neighbor 7.7.7.7 next-hop-self
+neighbor 7.7.7.8 remote-as 200
+neighbor 7.7.7.8 update-source lo0
+neighbor 7.7.7.8 next-hop-self
+neighbor 7.7.7.9 remote-as 200
+neighbor 7.7.7.9 update-source lo0
+neighbor 7.7.7.9 next-hop-self
+
+
+

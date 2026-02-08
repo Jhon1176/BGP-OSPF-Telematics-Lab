@@ -1,0 +1,4 @@
+.clab-bgp_lab/
+clab-bgp_lab/
+*.pcap
+.vscode/

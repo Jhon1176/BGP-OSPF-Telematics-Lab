@@ -1,0 +1,30 @@
+configure t
+int e0/0
+ip add 172.20.20.113 255.255.255.0
+no shut
+exit
+int e0/1
+ip add 192.168.4.2 255.255.255.0
+no shut
+exit
+int e0/2
+ip add 192.168.14.1 255.255.255.0
+no shut
+exit
+int loopback 0
+ip add 7.7.7.9 255.255.255.255
+exit
+router rip
+version 2
+no auto-summary
+network 192.168.4.0
+network 192.168.14.0
+network 7.7.7.9
+
+router bgp 200
+neighbor 7.7.7.6 remote-as 200
+neighbor 7.7.7.6 update-source lo0
+neighbor 7.7.7.7 remote-as 200
+neighbor 7.7.7.7 update-source lo0
+neighbor 7.7.7.8 remote-as 200
+neighbor 7.7.7.8 update-source lo0
