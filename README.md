@@ -1,7 +1,7 @@
 # Implementación de Red ISP: BGP + OSPF + MPLS (Simulación)
 
 ![Topologia de Red](image.png)
-*(Asegúrate de cambiar el nombre del archivo de la imagen aquí arriba)*
+
 
 ## 📋 Resumen del Proyecto
 Proyecto de ingeniería telemática diseñado para simular el núcleo de un proveedor de servicios de internet (ISP). Se implementó una arquitectura híbrida utilizando **Cisco IOL** para el borde y **VyOS** para el transporte.
